@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Twitt Map</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #head{
+      	color:#595959;
+      	background-color:#f2f2f2;
+      	text-align:center;
+      	padding:8px;
+      	font-size:24px;
+      	font-family:Arial, Helvetica, sans-serif;
+      	margin:0;
+      	}
+      #map {
+        height: 85%;
+        margin:0;
+      }
+      .sr-only{
+      	margin:2px 0 5px 35%;
+      	font-size:18px;
+      	font-family:Arial, Helvetica, sans-serif;
+      }
+      #bottom{
+      	margin:10px 0 0 0;
+      }
+    </style>
+
+    <script src="../static/js/jquery-1.11.2.js"></script>
+    <script src="../static/js/map.js"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.6.1/lodash.min.js"></script>
+
+  </head>
+  <body>
+   <nav class="navbar navbar-fixed-top navbar-light">
+   		<p id="head"><strong>TwittMap</strong></p>
+  	</nav>
+    <div id="map"></div>
+    <div id="bottom">
+      <form class="form-signin">
+          <label for="inputName" class="sr-only">Tweet Keyword</label>
+			<select id="inputName" name="inputName">
+			<option selected disabled hidden style='display:none' value=''>Select a keyword</option>
+			<option value="leo">Leo</option>
+			<option value="trump">Trump</option>
+			<option value="love">Love</option>
+			<option value="oscars">Oscars</option>
+			<option value="donald">Donald</option>
+			
+			</select>
+          <button id="btnShowMap" class="btn btn-lg btn-primary btn-block" type="button">Show on Map</button>
+          <input onclick="deleteMarkers();" type=button value="Delete Markers">
+        </form>
+    </div>
+    <script>
+      var markers = [];
+
+      function initMap() {
+        var center = {lat: 13.6504077, lng: 14.6186367};
+
+        window.map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: center
+        });
+      }
+
+      // Deletes all markers in the array by removing references to them.
+       function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+      }
+
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+
+      function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA54PpYcFhvFG5odM-yY0jdBGVQkV16j54&signed_in=true&callback=initMap">
+    </script>
+
+  </body>
+</html>
